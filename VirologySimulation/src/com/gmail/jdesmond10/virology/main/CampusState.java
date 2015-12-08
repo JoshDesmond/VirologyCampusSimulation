@@ -3,9 +3,13 @@
  */
 package com.gmail.jdesmond10.virology.main;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 import sim.engine.SimState;
+
+import com.gmail.jdesmond10.virology.time.TimeSimulationUtil;
 
 /**
  * This simulation is being written for a project at WPI's BCB100x Course. The
@@ -20,9 +24,15 @@ import sim.engine.SimState;
 public class CampusState extends SimState {
 
 	private static final long serialVersionUID = 1L;
+	private static final LocalDateTime STARTING_DATE = LocalDateTime.of(2015,
+			10, 27, 0, 0, 0);
 
+	/** Representation of active classes. */
 	private GlobalCourseSchedule globalCourseSchedule;
+	/** List of students. Primarily intended to be used with displays. */
 	private Collection<Student> studentList;
+	/** Utility class, which students need to use in their step method. */
+	public TimeSimulationUtil timeSimulationUtil;
 
 	public CampusState(long seed) {
 		super(seed);
@@ -47,16 +57,26 @@ public class CampusState extends SimState {
 	public void start() {
 		super.start();
 
-		SimulationStarter simStarter = new SimulationStarter(this.random, this.schedule);
-		simStarter.createAndScheduleStudents();
-		globalCourseSchedule = simStarter.createGlobalSchedule();
+		// Handle Initializing start time.
+		this.timeSimulationUtil = new TimeSimulationUtil(STARTING_DATE);
+
+		// Handle Initializing Students and globalSchedule
+		AbstractSimulationStarter simStarter = new RandomlyGeneratedSimulationStarter(
+				this.random, this.schedule);
+		simStarter.init();
+
+		this.studentList = simStarter.getStudentList();
+		this.globalCourseSchedule = simStarter.getGlobalSchedule();
 	}
 
-	public GlobalCourseSchedule getGlobalCourseSchedule() {
-		return this.globalCourseSchedule;
+	public Collection<Student> getStudents() {
+		return this.studentList;
 	}
 
-	// TODO students should be able to ask CampusState for a collection of adjacent students.
-
-
+	/** Returns a string representing the current time */
+	public String getCurrentRealTime() {
+		LocalDateTime currentLocalDateTime = timeSimulationUtil
+				.timeOfSimulation(schedule.getSteps());
+		return currentLocalDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+	}
 }
