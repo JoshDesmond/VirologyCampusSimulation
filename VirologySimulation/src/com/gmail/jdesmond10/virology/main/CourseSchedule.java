@@ -27,7 +27,8 @@ public class CourseSchedule {
 
 	/**
 	 * Adds the given lecture to the set of registered classes. Throws an error
-	 * if the lecture was already in the list of lectures.
+	 * if the lecture was already in the list of lectures. Also throws an error
+	 * if adding the new lecture caused a time conflict.
 	 * 
 	 * @param lecture
 	 */
@@ -38,6 +39,15 @@ public class CourseSchedule {
 							"Lecture %s was already in this courseSchedule's set of lectures",
 							lecture));
 		}
+
+		// Check if addition was valid.
+		if (!validateSchedule()) {
+			throw new IllegalStateException(
+					String.format(
+							"Class overlap after adding lecture %s to current schedule for CourseSchedule %s",
+							lecture, this));
+		}
+
 	}
 
 	/**
@@ -70,6 +80,14 @@ public class CourseSchedule {
 	public boolean validateSchedule() {
 		// SUGGESTION write this method if there are problems with scheduling.
 		return true;
+	}
+
+	/**
+	 * @return the set of lectures from the schedule. Please don't alter it's
+	 *         contents as it's an original copy.
+	 */
+	public Set<Lecture> getLectures() {
+		return listOfLectures;
 	}
 
 }

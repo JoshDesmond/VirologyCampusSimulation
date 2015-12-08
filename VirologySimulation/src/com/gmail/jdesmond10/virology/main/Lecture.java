@@ -1,6 +1,8 @@
 package com.gmail.jdesmond10.virology.main;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.gmail.jdesmond10.virology.time.MeetingTimes;
 
@@ -24,7 +26,7 @@ public class Lecture {
 	/**
 	 * List of students which are attending this class
 	 */
-	private Collection<Student> students;
+	private Set<Student> students;
 
 	/**
 	 * 
@@ -38,6 +40,7 @@ public class Lecture {
 	public Lecture(MeetingTimes time, String ID) {
 		this.time = time;
 		this.ID = ID;
+		this.students = new HashSet<Student>();
 	}
 
 	/**
@@ -47,7 +50,17 @@ public class Lecture {
 	 *            Student to be added
 	 */
 	public void addStudent(Student student) {
-		students.add(student);
+		boolean isNew = students.add(student);
+		if (isNew) {
+			student.registerForClass(this);
+		}
+
+		if (CampusState.DEBUG && !isNew) {
+			System.out
+			.println(String
+					.format("Warning. Attempted to add a duplicate student to the lecture %s",
+							this));
+		}
 	}
 
 	/**
@@ -58,22 +71,31 @@ public class Lecture {
 		return students;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (!(o instanceof Lecture))
-			return false;
 
-		Lecture lecture = (Lecture) o;
-		// Return true if they share the same unique ID.
-		return !(ID != null ? !ID.equals(lecture.ID) : lecture.ID != null);
-	}
 
 	@Override
 	public int hashCode() {
-		int result = ID.hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
 		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Lecture other = (Lecture) obj;
+		if (ID == null) {
+			if (other.ID != null)
+				return false;
+		} else if (!ID.equals(other.ID))
+			return false;
+		return true;
 	}
 
 	@Override

@@ -21,11 +21,13 @@ AbstractSimulationStarter {
 		// build list of students
 		Collection<Student> studentCollection = new ArrayList<Student>();
 
+
 		for (int i = 0; i < STARTING_STUDENTS; i++) {
 			Student s = new Student();
 			schedule.scheduleRepeating(s);
 			studentCollection.add(s);
-			// Todo randomly generate students based off of some hardcoded list
+
+			// TODO randomly generate students based off of some hardcoded list
 			// of classes or something.
 		}
 

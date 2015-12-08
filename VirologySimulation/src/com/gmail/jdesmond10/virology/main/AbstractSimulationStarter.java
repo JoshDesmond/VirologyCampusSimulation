@@ -29,7 +29,8 @@ public abstract class AbstractSimulationStarter {
 	/** Object representing global schedule. To be created during {@link #init()} */
 	protected Object globalSchedule;
 
-	public AbstractSimulationStarter(MersenneTwisterFast random, Schedule schedule) {
+	public AbstractSimulationStarter(MersenneTwisterFast random,
+			Schedule schedule) {
 		this.random = random;
 		this.schedule = schedule;
 	}
@@ -38,10 +39,10 @@ public abstract class AbstractSimulationStarter {
 
 	/**
 	 * This method should be called once and only once for each simulation. It
-	 * creates a queue of students, and schedules each one. It also builds the
-	 * global schedule for the simulation. After calling init(), you can call
-	 * {@link #getGlobalSchedule()} and {@link #getStudentList()} to populate
-	 * the fields in the simulation.
+	 * creates a collection of students, and schedules each one. It also builds
+	 * the global schedule for the simulation. After calling init(), you can
+	 * call {@link #getGlobalSchedule()} and {@link #getStudentList()} to
+	 * populate the fields in the simulation.
 	 * 
 	 * Any method which extends init() must be sure to set wasInitiated to be
 	 * true.
@@ -76,5 +77,18 @@ public abstract class AbstractSimulationStarter {
 
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * Creates a new student, schedules it, and adds it to the list of students.
+	 * Should not be called until students has been instantiated.
+	 * 
+	 * @return
+	 */
+	protected Student initStudent() {
+		Student s = new Student();
+		schedule.scheduleRepeating(s);
+		this.students.add(s);
+		return s;
 	}
 }

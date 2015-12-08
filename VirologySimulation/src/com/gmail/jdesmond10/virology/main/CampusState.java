@@ -24,9 +24,11 @@ import com.gmail.jdesmond10.virology.time.TimeSimulationUtil;
 public class CampusState extends SimState {
 
 	private static final long serialVersionUID = 1L;
+	/** All simulations will start at 2015/10/27 0:00:00. */
 	private static final LocalDateTime STARTING_DATE = LocalDateTime.of(2015,
 			10, 27, 0, 0, 0);
-
+	/** Set to true to enable sysout statements */
+	public static final boolean DEBUG = true;
 	/** Representation of active classes. */
 	private GlobalCourseSchedule globalCourseSchedule;
 	/** List of students. Primarily intended to be used with displays. */
@@ -34,6 +36,9 @@ public class CampusState extends SimState {
 	/** Utility class, which students need to use in their step method. */
 	public TimeSimulationUtil timeSimulationUtil;
 
+	/**
+	 * @see sim.engine.SimState#SimState(long seed)
+	 */
 	public CampusState(long seed) {
 		super(seed);
 	}
@@ -61,7 +66,7 @@ public class CampusState extends SimState {
 		this.timeSimulationUtil = new TimeSimulationUtil(STARTING_DATE);
 
 		// Handle Initializing Students and globalSchedule
-		AbstractSimulationStarter simStarter = new RandomlyGeneratedSimulationStarter(
+		AbstractSimulationStarter simStarter = new SimpleSimulationStarter(
 				this.random, this.schedule);
 		simStarter.init();
 

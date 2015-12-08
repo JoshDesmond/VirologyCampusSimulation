@@ -76,4 +76,43 @@ public class Student implements Steppable {
 		return isSick;
 	}
 
+	/**
+	 * Registers the student to be at the current lecture.
+	 * 
+	 * Throws an error if there is a time conflict.
+	 * 
+	 * @param lecture
+	 *            Lecture to add student to.
+	 */
+	public void registerForClass(Lecture lecture) {
+		boolean classRegisteredStudent = lecture.getStudents().contains(this);
+
+		if (!classRegisteredStudent) {
+			lecture.addStudent(this);
+		}
+
+		// TODO this logic is redundant AF. fix it. Look through to see if
+		// addStudent handles this part below.
+		boolean isAlreadyRegistered = schedule.getLectures().contains(lecture);
+
+		System.out.println(this.toString());
+		if (!isAlreadyRegistered) {
+			schedule.addLecture(lecture);
+		} else {
+			if (CampusState.DEBUG) {
+				System.out
+				.println("A call was made to registerForClass in Student,"
+						+ " when the student already had that class on their "
+						+ "schedule...");
+			}
+		}
+
+		if (classRegisteredStudent && isAlreadyRegistered) {
+			throw new IllegalArgumentException(
+					String.format("A call to registerForClass was given when the "
+							+ "student is already registered for the class, and when"
+							+ " the class already had the student registered."));
+			// SUGGESTION add some more details to the error message if needed.
+		}
+	}
 }
