@@ -74,7 +74,6 @@ public class CampusState extends SimState {
 		simStarter.init();
 
 		this.studentList = simStarter.getStudentList();
-		System.out.println(studentList);
 		this.globalCourseSchedule = simStarter.getGlobalSchedule();
 	}
 
@@ -88,4 +87,12 @@ public class CampusState extends SimState {
 				.timeOfSimulation(schedule.getSteps());
 		return currentLocalDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
 	}
+
+	/** Returns a list of all the lectures in the simulation */
+	public GlobalCourseSchedule getGlobalLectures() {
+		return globalCourseSchedule;
+	}
+
+
+
 }

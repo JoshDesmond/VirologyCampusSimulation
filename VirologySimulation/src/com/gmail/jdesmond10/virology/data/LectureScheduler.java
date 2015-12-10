@@ -23,7 +23,10 @@ import ec.util.MersenneTwisterFast;
 public class LectureScheduler {
 
 	// SUGGESTION this should probably just be a Lecture...
-	// SUGGESTION change this to set as well?
+	/**
+	 * list of lectures. Must be treated like a set, although it needs to be
+	 * able to access a random item so I'm using LinkedList.
+	 */
 	private List<Lecture> masterList;
 	private MersenneTwisterFast random;
 
@@ -35,10 +38,17 @@ public class LectureScheduler {
 	/**
 	 * Adds a lecture to the given list of lectures.
 	 * 
+	 * @throws IllegalArgumentException
+	 *             if the lecture is already on the list of lectures.
 	 * @param lecture
 	 *            Lecture to add.
 	 */
 	public void addClass(Lecture lecture) {
+		if (masterList.contains(lecture)) {
+			throw new IllegalArgumentException(String.format(
+					"Duplicate lecture %s trying to be added", lecture));
+		}
+
 		this.masterList.add(lecture);
 	}
 
@@ -80,6 +90,8 @@ public class LectureScheduler {
 	 * @return Three different courses one student can register for.
 	 */
 	private Collection<Lecture> getRandomThreeLectures() {
+		// SUGGESTION refactor this into smaller methods if you ever try to
+		// change it.
 		Lecture one;
 		Lecture two = null;
 		Lecture three = null;
@@ -103,7 +115,8 @@ public class LectureScheduler {
 			// it's been retrieved before, try again.
 			two = getRandomLecture();
 
-			if (two.equals(one) || two.time.conflictsWith(one.time) || two.isFull()) {
+			if (two.equals(one) || two.time.conflictsWith(one.time)
+					|| two.isFull()) {
 				// If they're the same
 				// or if they're conflicting
 				// or if it's full
@@ -120,7 +133,8 @@ public class LectureScheduler {
 		while (searchingForThirdLecture) {
 			// See logic from second class loop.
 			three = getRandomLecture();
-			if (three.equals(one) || three.time.conflictsWith(one.time) || three.isFull()) {
+			if (three.equals(one) || three.time.conflictsWith(one.time)
+					|| three.isFull()) {
 				continue;
 			}
 			if (three.equals(two) || three.time.conflictsWith(two.time)) {
@@ -140,6 +154,10 @@ public class LectureScheduler {
 		// SUGGESTION Ensure this is actually correct logic. No tests.
 		int nextInt = Math.abs(random.nextInt());
 		return masterList.get(nextInt % maxIndex);
+	}
+
+	public List<Lecture> getLectureList() {
+		return this.masterList;
 	}
 
 	public int getNumberOfLectures() {

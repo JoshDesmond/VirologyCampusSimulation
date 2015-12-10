@@ -76,8 +76,7 @@ public abstract class AbstractSimulationStarter {
 					"getGlobalSchedule called before init() was called");
 		}
 
-		// TODO Auto-generated method stub
-		return null;
+		return this.globalSchedule;
 	}
 
 	/**

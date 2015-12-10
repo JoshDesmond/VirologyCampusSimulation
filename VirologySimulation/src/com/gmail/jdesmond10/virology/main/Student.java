@@ -49,6 +49,8 @@ public class Student implements Steppable {
 		CampusState state = (CampusState) campusState;
 		final long simTime = state.schedule.getSteps();
 
+		tempMethod(simTime, state);
+
 		// Now determine neighboring students.
 		Optional<Lecture> l = schedule.getLectureAtTime(simTime,
 				state.timeSimulationUtil);
@@ -61,6 +63,17 @@ public class Student implements Steppable {
 		Collection<Student> neighbors = l.get().getStudents();
 
 		stepSicknessOdds(neighbors);
+	}
+
+	@Deprecated
+	private void tempMethod(long simTime, CampusState state) {
+		// TODO Delete this am just testing
+		if (simTime == 15) {
+			System.out.println(state.getCurrentRealTime() + ": "
+					+ state.getGlobalLectures().toString());
+
+			state.kill();
+		}
 	}
 
 	/**

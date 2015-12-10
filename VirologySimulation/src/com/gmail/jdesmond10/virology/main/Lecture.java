@@ -5,14 +5,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.gmail.jdesmond10.virology.time.MeetingTimes;
+import com.gmail.jdesmond10.virology.time.SimpleDailyMeetingTimes;
 
 /**
  * An object representing a set of course meetings, which contains a unique ID,
  * and a set of students in the lecture/class.
  * 
- * Created by Saahil on 12/6/2015.
  */
-public class Lecture {
+public class Lecture implements Comparable<Lecture> {
 	/**
 	 * {@link MeetingTimes}
 	 */
@@ -123,6 +123,38 @@ public class Lecture {
 	}
 
 	@Override
+	public int compareTo(Lecture o) {
+		// SUGGESTION this is wonky logic. Maybe I should have two types of
+		// Lectures, one that's comparable one that's not. And comparable
+		// Lectures have to use a comparable Meeting Time?
+		int diff = 0;
+		if (o.time instanceof SimpleDailyMeetingTimes
+				&& this.time instanceof SimpleDailyMeetingTimes) {
+			// Then compare via times & this.
+
+			SimpleDailyMeetingTimes otherTime = (SimpleDailyMeetingTimes) o.time;
+			SimpleDailyMeetingTimes thisTime = (SimpleDailyMeetingTimes) this.time;
+
+			diff = thisTime.compareTo(otherTime);
+			if (diff != 0) {
+				return diff;
+			}
+		}
+
+		// otherwise go of their capacity, then ID.
+
+		diff = this.getMaxCapicity() - o.getMaxCapicity();
+
+		if (diff != 0) {
+			return diff;
+		}
+
+		diff = this.ID.compareTo(o.ID);
+
+		return diff;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -149,8 +181,21 @@ public class Lecture {
 
 	@Override
 	public String toString() {
-		// SUGGESTION Add list of students to toString();
-		return String.format("Course %s ", this.ID);
+		StringBuilder builder = new StringBuilder();
+		builder.append("Lecture [");
+		if (time != null)
+			builder.append("time=").append(time).append(", ");
+		if (ID != null)
+			builder.append("ID=").append(ID).append(", ");
+		builder.append("maxCapicity=").append(maxCapicity)
+		.append(", getNumberOfStudents()=")
+		.append(getNumberOfStudents()).append("]");
+		return builder.toString();
 	}
+
+
+
+
+
 
 }

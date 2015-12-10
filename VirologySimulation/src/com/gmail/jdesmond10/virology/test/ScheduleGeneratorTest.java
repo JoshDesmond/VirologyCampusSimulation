@@ -36,8 +36,6 @@ public class ScheduleGeneratorTest {
 		LectureScheduler l = EmptyScheduleGenerator
 				.generateNewSchedule(new MersenneTwisterFast());
 
-		System.out.println(l.getNumberOfLectures());
-
 		for (int i = 100; i > 0; i--) {
 			l.registerStudentForClasses(new Student());
 		}

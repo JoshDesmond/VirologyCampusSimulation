@@ -6,8 +6,10 @@ import java.time.LocalDateTime;
  * Daily meeting times, for when the specificity of the date never exceeds the
  * precision of a 24 hour day.
  */
-public class SimpleDailyMeetingTimes implements MeetingTimes {
+public class SimpleDailyMeetingTimes implements MeetingTimes,
+Comparable<SimpleDailyMeetingTimes> {
 
+	/** int between 0 and 23, specifying when the course meets. */
 	private int hour;
 
 	/**
@@ -42,5 +44,28 @@ public class SimpleDailyMeetingTimes implements MeetingTimes {
 								+ "conflicts with a meeting time %s, which isn't "
 								+ "currently support by this version of CampusSimulation.",
 								otherMeetingTimes));
+	}
+
+	/**
+	 * 
+	 * @return hour when course meets, between 0 and 23.
+	 */
+	public int getHour() {
+		return hour;
+	}
+
+	@Override
+	public int compareTo(SimpleDailyMeetingTimes o) {
+		return hour - o.getHour();
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf("Meets at hour: " + hour);
+	}
+
+	@Override
+	public boolean isComparableWithSelf() {
+		return true;
 	}
 }

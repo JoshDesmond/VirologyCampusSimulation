@@ -36,4 +36,12 @@ public interface MeetingTimes {
 	 * @return True if there is a conflict.
 	 */
 	public boolean conflictsWith(MeetingTimes otherMeetingTimes);
+
+	/**
+	 * @return true if the class implementing this interface also implements
+	 *         Comparable<\self>.
+	 */
+	default public boolean isComparableWithSelf() {
+		return false;
+	}
 }
