@@ -1,12 +1,12 @@
-package com.gmail.jdesmond10.virology.main;
+package com.gmail.jdesmond10.virology.data;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import sim.engine.Schedule;
 
-import com.gmail.jdesmond10.virology.data.EmptyScheduleGenerator;
-import com.gmail.jdesmond10.virology.data.LectureScheduler;
+import com.gmail.jdesmond10.virology.main.AbstractSimulationStarter;
+import com.gmail.jdesmond10.virology.main.Student;
 
 import ec.util.MersenneTwisterFast;
 

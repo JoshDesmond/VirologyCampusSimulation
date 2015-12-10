@@ -104,7 +104,7 @@ public class Lecture {
 
 	/**
 	 * 
-	 * @see #hasRoomForAnotherStudent()
+	 * @see #isFull()
 	 * @return maxCapicty of class.
 	 */
 	public int getMaxCapicity() {
@@ -113,13 +113,13 @@ public class Lecture {
 
 	/**
 	 * 
-	 * @return True if the Max Capacity hasn't been reached yet.
+	 * @return True if the Max Capacity has been reached.
 	 */
-	public boolean hasRoomForAnotherStudent() {
+	public boolean isFull() {
 		if (this.getMaxCapicity() == 0) {
-			return true;
+			return false;
 		}
-		return this.getNumberOfStudents() < this.getMaxCapicity();
+		return this.getNumberOfStudents() >= this.getMaxCapicity();
 	}
 
 	@Override

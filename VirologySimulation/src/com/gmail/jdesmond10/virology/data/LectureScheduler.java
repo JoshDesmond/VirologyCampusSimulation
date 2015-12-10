@@ -59,7 +59,8 @@ public class LectureScheduler {
 
 	/**
 	 * Randomly assigns a student to three classes. Ensures there will be no
-	 * time conflicts.
+	 * time conflicts. Also ensures maximum capacity of classes will not be
+	 * reached.
 	 */
 	public void registerStudentForClasses(Student student) {
 		Collection<Lecture> threeLectures = getRandomThreeLectures();
@@ -74,9 +75,9 @@ public class LectureScheduler {
 
 	/**
 	 * Ensures that the three lectures are unique, and do not have course timing
-	 * conflicts.
+	 * conflicts. Also ensures maximum capacity of classes will not be reached.
 	 * 
-	 * @return
+	 * @return Three different courses one student can register for.
 	 */
 	private Collection<Lecture> getRandomThreeLectures() {
 		Lecture one;
@@ -91,6 +92,9 @@ public class LectureScheduler {
 		 */
 
 		one = getRandomLecture();
+		while (one.isFull()) {
+			one = getRandomLecture();
+		}
 
 		boolean searchingForSecondLecture = true;
 		while (searchingForSecondLecture) {
@@ -99,9 +103,10 @@ public class LectureScheduler {
 			// it's been retrieved before, try again.
 			two = getRandomLecture();
 
-			if (two.equals(one) || two.time.conflictsWith(one.time)) {
+			if (two.equals(one) || two.time.conflictsWith(one.time) || two.isFull()) {
 				// If they're the same
 				// or if they're conflicting
+				// or if it's full
 				continue;
 			}
 
@@ -113,10 +118,9 @@ public class LectureScheduler {
 
 		boolean searchingForThirdLecture = true;
 		while (searchingForThirdLecture) {
+			// See logic from second class loop.
 			three = getRandomLecture();
-			if (three.equals(one) || three.time.conflictsWith(one.time)) {
-				// If they're the same
-				// or if they're conflicting
+			if (three.equals(one) || three.time.conflictsWith(one.time) || three.isFull()) {
 				continue;
 			}
 			if (three.equals(two) || three.time.conflictsWith(two.time)) {

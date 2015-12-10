@@ -9,7 +9,7 @@ import sim.engine.Schedule;
 
 import com.gmail.jdesmond10.virology.data.EmptyScheduleGenerator;
 import com.gmail.jdesmond10.virology.data.LectureScheduler;
-import com.gmail.jdesmond10.virology.main.RandomSimulationStarter;
+import com.gmail.jdesmond10.virology.data.RandomSimulationStarter;
 import com.gmail.jdesmond10.virology.main.Student;
 
 import ec.util.MersenneTwisterFast;

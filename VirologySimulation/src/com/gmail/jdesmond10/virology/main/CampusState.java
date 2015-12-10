@@ -9,6 +9,7 @@ import java.util.Collection;
 
 import sim.engine.SimState;
 
+import com.gmail.jdesmond10.virology.data.RandomSimulationStarter;
 import com.gmail.jdesmond10.virology.time.TimeSimulationUtil;
 
 /**
@@ -35,12 +36,16 @@ public class CampusState extends SimState {
 	private Collection<Student> studentList;
 	/** Utility class, which students need to use in their step method. */
 	public TimeSimulationUtil timeSimulationUtil;
+	/** */
+	private final AbstractSimulationStarter simStarter;
 
 	/**
 	 * @see sim.engine.SimState#SimState(long seed)
 	 */
 	public CampusState(long seed) {
 		super(seed);
+
+		simStarter = new RandomSimulationStarter(random, schedule);
 	}
 
 	/**
@@ -66,8 +71,6 @@ public class CampusState extends SimState {
 		this.timeSimulationUtil = new TimeSimulationUtil(STARTING_DATE);
 
 		// Handle Initializing Students and globalSchedule
-		AbstractSimulationStarter simStarter = new SimpleSimulationStarter(
-				this.random, this.schedule);
 		simStarter.init();
 
 		this.studentList = simStarter.getStudentList();

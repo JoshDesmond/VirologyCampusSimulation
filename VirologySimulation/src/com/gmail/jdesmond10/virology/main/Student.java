@@ -30,6 +30,7 @@ public class Student implements Steppable {
 	 * @param ID
 	 */
 	public Student(int ID) {
+		this.schedule = new CourseSchedule();
 		this.ID = ID;
 	}
 
