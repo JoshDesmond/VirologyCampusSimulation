@@ -71,7 +71,12 @@ public class Lecture {
 		return students;
 	}
 
-
+	/**
+	 * @return the number of students in the class.
+	 */
+	protected int getNumberOfStudents() {
+		return this.students.size();
+	}
 
 	@Override
 	public int hashCode() {
