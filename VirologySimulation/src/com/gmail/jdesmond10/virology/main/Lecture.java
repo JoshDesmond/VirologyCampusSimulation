@@ -55,7 +55,7 @@ public class Lecture {
 			student.registerForClass(this);
 		}
 
-		if (CampusState.DEBUG && !isNew) {
+		if (!isNew && CampusState.DEBUG) {
 			System.out
 			.println(String
 					.format("Warning. Attempted to add a duplicate student to the lecture %s",

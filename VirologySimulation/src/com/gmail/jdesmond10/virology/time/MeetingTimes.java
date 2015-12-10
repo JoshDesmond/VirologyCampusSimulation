@@ -27,4 +27,13 @@ public interface MeetingTimes {
 	 * @return True if the course is meeting
 	 */
 	public boolean meetsDuringDateTime(LocalDateTime time);
+
+	/**
+	 * Determines if there is any time conflict between the two courses.
+	 * 
+	 * @param otherMeetingTimes
+	 *            MeetingTime to compare this to
+	 * @return True if there is a conflict.
+	 */
+	public boolean conflictsWith(MeetingTimes otherMeetingTimes);
 }

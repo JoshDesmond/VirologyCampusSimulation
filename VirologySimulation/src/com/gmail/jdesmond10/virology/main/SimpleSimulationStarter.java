@@ -19,6 +19,7 @@ public class SimpleSimulationStarter extends AbstractSimulationStarter {
 	public void init() {
 		this.students = new ArrayList<Student>();
 
+		// Calling initStudent adds them to list and schedules them and stuff.
 		Student saa = initStudent();
 		Student dez = initStudent();
 		Student hayls = initStudent();

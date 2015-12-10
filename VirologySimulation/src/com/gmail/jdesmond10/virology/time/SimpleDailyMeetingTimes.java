@@ -26,4 +26,21 @@ public class SimpleDailyMeetingTimes implements MeetingTimes {
 		return (time.getHour() == this.hour);
 	}
 
+	@Override
+	public boolean conflictsWith(MeetingTimes otherMeetingTimes) {
+		if (otherMeetingTimes instanceof SimpleDailyMeetingTimes) {
+			// Then our logic becomes much much simpler.
+			SimpleDailyMeetingTimes simpleOther = (SimpleDailyMeetingTimes) otherMeetingTimes;
+
+			return (simpleOther.hour == this.hour);
+		}
+
+		// Isn't supported otherwise.
+		throw new IllegalStateException(
+				String.format(
+						"You are comparing whether a simple meeting time "
+								+ "conflicts with a meeting time %s, which isn't "
+								+ "currently support by this version of CampusSimulation.",
+								otherMeetingTimes));
+	}
 }

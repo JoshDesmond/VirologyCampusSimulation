@@ -56,11 +56,16 @@ public class Student implements Steppable {
 	 */
 	private void stepSicknessOdds(Collection<Student> neighbors) {
 
-		for (Iterator<Student> iterator = neighbors.iterator(); iterator.hasNext();) {
+		for (Iterator<Student> iterator = neighbors.iterator(); iterator
+				.hasNext();) {
 			Student otherStudent = iterator.next();
+
+			if (CampusState.DEBUG) {
+				System.out.println(String.format("checking %s with %s",
+						otherStudent.toString(), this.toString()));
+			}
+
 			// TODO Auto-generated method stub
-			System.out.println(String.format("checking %s with %s",
-					otherStudent.toString(), this.toString()));
 
 			// Do something with student. SUGGESTION Perhaps we should use a
 			// strategy pattern here. Look that up it's actually kind of
@@ -95,7 +100,6 @@ public class Student implements Steppable {
 		// addStudent handles this part below.
 		boolean isAlreadyRegistered = schedule.getLectures().contains(lecture);
 
-		System.out.println(this.toString());
 		if (!isAlreadyRegistered) {
 			schedule.addLecture(lecture);
 		} else {
