@@ -56,8 +56,8 @@ public class Student implements Steppable {
 	 */
 	private void stepSicknessOdds(Collection<Student> neighbors) {
 
-		for (Iterator iterator = neighbors.iterator(); iterator.hasNext();) {
-			Student otherStudent = (Student) iterator.next();
+		for (Iterator<Student> iterator = neighbors.iterator(); iterator.hasNext();) {
+			Student otherStudent = iterator.next();
 			// TODO Auto-generated method stub
 			System.out.println(String.format("checking %s with %s",
 					otherStudent.toString(), this.toString()));
