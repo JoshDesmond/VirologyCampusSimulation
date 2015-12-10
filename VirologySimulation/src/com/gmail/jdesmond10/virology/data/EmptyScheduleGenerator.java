@@ -41,8 +41,10 @@ public class EmptyScheduleGenerator {
 	 * @return LectureScheduler to be populated with Classes.
 	 */
 	public static LectureScheduler generateNewSchedule(
-			MersenneTwisterFast random) {
-		EmptyScheduleGenerator e = new EmptyScheduleGenerator(random);
+			MersenneTwisterFast givenRandom) {
+
+
+		EmptyScheduleGenerator e = new EmptyScheduleGenerator(givenRandom);
 		return e.generateSchedule();
 
 	}

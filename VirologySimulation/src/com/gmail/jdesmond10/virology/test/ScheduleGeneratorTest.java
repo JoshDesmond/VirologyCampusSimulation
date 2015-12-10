@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.gmail.jdesmond10.virology.data.EmptyScheduleGenerator;
 import com.gmail.jdesmond10.virology.data.LectureScheduler;
+import com.gmail.jdesmond10.virology.main.Student;
 
 import ec.util.MersenneTwisterFast;
 
@@ -24,5 +25,17 @@ public class ScheduleGeneratorTest {
 				.generateNewSchedule(new MersenneTwisterFast());
 
 		assertTrue(l.getNumberOfLectures() > 0);
+	}
+
+	@Test
+	public void testLectureSchedulerHandlesRegistration() {
+		LectureScheduler l = EmptyScheduleGenerator
+				.generateNewSchedule(new MersenneTwisterFast());
+
+		System.out.println(l.getNumberOfLectures());
+
+		for (int i = 100; i > 0; i--) {
+			l.registerStudentForClasses(new Student());
+		}
 	}
 }

@@ -29,6 +29,7 @@ public class LectureScheduler {
 	private MersenneTwisterFast random;
 
 	public LectureScheduler(MersenneTwisterFast random) {
+		this.random = random;
 		this.masterList = new LinkedList<MaxCapicityLecture>();
 	}
 
@@ -134,7 +135,8 @@ public class LectureScheduler {
 	private Lecture getRandomLecture() {
 		int maxIndex = getNumberOfLectures() - 1;
 		// SUGGESTION Ensure this is actually correct logic. No tests.
-		return masterList.get(random.nextInt() % maxIndex);
+		int nextInt = Math.abs(random.nextInt());
+		return masterList.get(nextInt % maxIndex);
 	}
 
 	public int getNumberOfLectures() {

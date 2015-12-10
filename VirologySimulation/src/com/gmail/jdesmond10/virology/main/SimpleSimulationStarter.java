@@ -18,6 +18,7 @@ public class SimpleSimulationStarter extends AbstractSimulationStarter {
 	@Override
 	public void init() {
 		this.students = new ArrayList<Student>();
+		this.globalSchedule = new GlobalCourseSchedule();
 
 		// Calling initStudent adds them to list and schedules them and stuff.
 		Student saa = initStudent();
@@ -38,6 +39,7 @@ public class SimpleSimulationStarter extends AbstractSimulationStarter {
 		dez.registerForClass(lbcb);
 		hayls.registerForClass(lbcb);
 		hayls.registerForClass(lmath);
+
 
 		this.wasInitiated = true;
 	}

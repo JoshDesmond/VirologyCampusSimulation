@@ -60,6 +60,10 @@ public class Student implements Steppable {
 				.hasNext();) {
 			Student otherStudent = iterator.next();
 
+			if (otherStudent.equals(this)) {
+				continue;
+			}
+
 			if (CampusState.DEBUG) {
 				System.out.println(String.format("checking %s with %s",
 						otherStudent.toString(), this.toString()));
@@ -119,4 +123,7 @@ public class Student implements Steppable {
 			// SUGGESTION add some more details to the error message if needed.
 		}
 	}
+
+	// SUGGESTION add toString for students. Give them a unique ID or something
+	// maybe.
 }
