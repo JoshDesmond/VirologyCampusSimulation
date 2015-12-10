@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.gmail.jdesmond10.virology.main.Lecture;
-import com.gmail.jdesmond10.virology.main.MaxCapicityLecture;
 import com.gmail.jdesmond10.virology.main.Student;
 
 import ec.util.MersenneTwisterFast;
@@ -25,12 +24,12 @@ public class LectureScheduler {
 
 	// SUGGESTION this should probably just be a Lecture...
 	// SUGGESTION change this to set as well?
-	private List<MaxCapicityLecture> masterList;
+	private List<Lecture> masterList;
 	private MersenneTwisterFast random;
 
 	public LectureScheduler(MersenneTwisterFast random) {
 		this.random = random;
-		this.masterList = new LinkedList<MaxCapicityLecture>();
+		this.masterList = new LinkedList<Lecture>();
 	}
 
 	/**
@@ -39,7 +38,7 @@ public class LectureScheduler {
 	 * @param lecture
 	 *            Lecture to add.
 	 */
-	public void addClass(MaxCapicityLecture lecture) {
+	public void addClass(Lecture lecture) {
 		this.masterList.add(lecture);
 	}
 

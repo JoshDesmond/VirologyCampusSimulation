@@ -12,10 +12,25 @@ public class Student implements Steppable {
 	private static final long serialVersionUID = 1L;
 	private boolean isSick;
 	private CourseSchedule schedule;
+	/**
+	 * Optional field in Student. If it exists, it will be used for toString()
+	 * output.
+	 */
+	private int ID;
 
 	public Student() {
 		this.isSick = false;
 		this.schedule = new CourseSchedule();
+	}
+
+	/**
+	 * Optional constructor which creates a student with an ID. If an ID is
+	 * given, the toString() method will print out the students ID.
+	 * 
+	 * @param ID
+	 */
+	public Student(int ID) {
+		this.ID = ID;
 	}
 
 	@Override
@@ -124,6 +139,12 @@ public class Student implements Steppable {
 		}
 	}
 
-	// SUGGESTION add toString for students. Give them a unique ID or something
-	// maybe.
+	@Override
+	public String toString() {
+		if (ID == 0) {
+			super.toString();
+		}
+
+		return String.valueOf(this.ID);
+	}
 }

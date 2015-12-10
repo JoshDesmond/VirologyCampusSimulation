@@ -2,7 +2,7 @@ package com.gmail.jdesmond10.virology.data;
 
 import java.util.Map;
 
-import com.gmail.jdesmond10.virology.main.MaxCapicityLecture;
+import com.gmail.jdesmond10.virology.main.Lecture;
 import com.gmail.jdesmond10.virology.time.MeetingTimes;
 import com.gmail.jdesmond10.virology.time.SimpleDailyMeetingTimes;
 
@@ -63,7 +63,7 @@ public class EmptyScheduleGenerator {
 
 			for (int i = numOfLectures; i > 0; i--) {
 
-				lectureScheduler.addClass(new MaxCapicityLecture(
+				lectureScheduler.addClass(new Lecture(
 						getNextCourseTime(), getNextCourseCode(lectureSize),
 						lectureSize));
 			}

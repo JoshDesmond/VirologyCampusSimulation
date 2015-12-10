@@ -45,7 +45,8 @@ public abstract class AbstractSimulationStarter {
 	 * populate the fields in the simulation.
 	 * 
 	 * Any method which extends init() must be sure to set wasInitiated to be
-	 * true.
+	 * true, and it MUST instantiate the two fields this.students and
+	 * this.globalSchedule. Populate those however, you want.
 	 * 
 	 * @return List of students which can be used for graphical display.
 	 */
@@ -86,7 +87,11 @@ public abstract class AbstractSimulationStarter {
 	 * @return
 	 */
 	protected Student initStudent() {
-		Student s = new Student();
+		return initStudent(0);
+	}
+
+	protected Student initStudent(int i) {
+		Student s = new Student(i);
 		schedule.scheduleRepeating(s);
 		this.students.add(s);
 		return s;

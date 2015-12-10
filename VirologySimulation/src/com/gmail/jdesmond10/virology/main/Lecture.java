@@ -27,6 +27,8 @@ public class Lecture {
 	 * List of students which are attending this class
 	 */
 	private Set<Student> students;
+	/** Maximum number of students that can join the class. default value is 0. */
+	private final int maxCapicity;
 
 	/**
 	 * 
@@ -41,7 +43,22 @@ public class Lecture {
 		this.time = time;
 		this.ID = ID;
 		this.students = new HashSet<Student>();
+		this.maxCapicity = 0;
 	}
+
+	/**
+	 * @see #Lecture(MeetingTimes, String)
+	 * @param maxCapicity
+	 *            Maximum number of students that can be registered in the
+	 *            class.
+	 */
+	public Lecture(MeetingTimes time, String ID, int maxCapicity) {
+		this.students = new HashSet<Student>();
+		this.maxCapicity = maxCapicity;
+		this.time = time;
+		this.ID = ID;
+	}
+
 
 	/**
 	 * adds the given student to the class
@@ -50,6 +67,13 @@ public class Lecture {
 	 *            Student to be added
 	 */
 	public void addStudent(Student student) {
+		if (this.getNumberOfStudents() >= this.getMaxCapicity()) {
+			throw new IllegalArgumentException(
+					String.format(
+							"Too many students added to class. Capicity of %s exceeded.",
+							this.getMaxCapicity()));
+		}
+
 		boolean isNew = students.add(student);
 		if (isNew) {
 			student.registerForClass(this);
@@ -76,6 +100,26 @@ public class Lecture {
 	 */
 	protected int getNumberOfStudents() {
 		return this.students.size();
+	}
+
+	/**
+	 * 
+	 * @see #hasRoomForAnotherStudent()
+	 * @return maxCapicty of class.
+	 */
+	public int getMaxCapicity() {
+		return maxCapicity;
+	}
+
+	/**
+	 * 
+	 * @return True if the Max Capacity hasn't been reached yet.
+	 */
+	public boolean hasRoomForAnotherStudent() {
+		if (this.getMaxCapicity() == 0) {
+			return true;
+		}
+		return this.getNumberOfStudents() < this.getMaxCapicity();
 	}
 
 	@Override
