@@ -13,6 +13,14 @@ import com.gmail.jdesmond10.virology.main.Student;
 
 import ec.util.MersenneTwisterFast;
 
+/**
+ * automates the process of registering students for classes. The most important
+ * method is {@link #registerAllStudents(Set)}. I intended for this class to be
+ * created within EmptyScheduleGenerator, although if you want to build your
+ * own, just use the constructor, and add classes using addClass().
+ * 
+ * @author Josh Desmond
+ */
 public class LectureScheduler {
 
 	// SUGGESTION this should probably just be a Lecture...
@@ -74,41 +82,47 @@ public class LectureScheduler {
 		Lecture one;
 		Lecture two = null;
 		Lecture three = null;
+		/*
+		 * The logic for this method is a little wonky, but I was just trying to
+		 * keep it simple. Basically what's going on is that first a Lecture one
+		 * is picked. Then a lecture two is picked, and it's checked against
+		 * lecture one to see if there are no time conflicts. The same is done
+		 * for three then comparing to both two and one.
+		 */
 
 		one = getRandomLecture();
 
 		boolean searchingForSecondLecture = true;
-
 		while (searchingForSecondLecture) {
 			// SUGGESTION optimize this by keeping track of what meetings have
 			// already been checked. That is you can say, getRandomLecture, if
 			// it's been retrieved before, try again.
 			two = getRandomLecture();
 
-			if (!two.equals(one) && !two.time.conflictsWith(one.time)) {
-				// If they're different
-				// And if they're not conflicting
-
-				searchingForSecondLecture = false;
+			if (two.equals(one) || two.time.conflictsWith(one.time)) {
+				// If they're the same
+				// or if they're conflicting
+				continue;
 			}
 
+			// else
+			searchingForSecondLecture = false;
 			// SUGGESTION have this short circuit if you keep checking and you
 			// run out of options.
 		}
 
 		boolean searchingForThirdLecture = true;
-
 		while (searchingForThirdLecture) {
 			three = getRandomLecture();
-
-			if (!three.equals(one) && !three.time.conflictsWith(one.time)) {
-				// If they're different
-				// And if they're not conflicting
-
-				if (!three.equals(two) && !three.time.conflictsWith(two.time)) {
-					searchingForThirdLecture = false;
-				}
+			if (three.equals(one) || three.time.conflictsWith(one.time)) {
+				// If they're the same
+				// or if they're conflicting
+				continue;
 			}
+			if (three.equals(two) || three.time.conflictsWith(two.time)) {
+				continue;
+			}
+			searchingForThirdLecture = false;
 		}
 
 		return Arrays.asList(one, two, three);
