@@ -59,13 +59,13 @@ public class Lecture {
 		this.ID = ID;
 	}
 
-
 	/**
 	 * adds the given student to the class
 	 * 
 	 * @param s
 	 *            Student to be added
 	 */
+
 	public void addStudent(Student student) {
 		if (this.getNumberOfStudents() >= this.getMaxCapicity()) {
 			throw new IllegalArgumentException(

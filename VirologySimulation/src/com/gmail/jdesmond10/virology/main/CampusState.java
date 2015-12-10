@@ -29,7 +29,7 @@ public class CampusState extends SimState {
 	private static final LocalDateTime STARTING_DATE = LocalDateTime.of(2015,
 			10, 27, 0, 0, 0);
 	/** Set to true to enable sysout statements */
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	/** Representation of active classes. */
 	private GlobalCourseSchedule globalCourseSchedule;
 	/** List of students. Primarily intended to be used with displays. */

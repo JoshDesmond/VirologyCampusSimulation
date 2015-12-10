@@ -27,7 +27,7 @@ public abstract class AbstractSimulationStarter {
 	 */
 	protected Collection<Student> students;
 	/** Object representing global schedule. To be created during {@link #init()} */
-	protected Object globalSchedule;
+	protected GlobalCourseSchedule globalSchedule;
 
 	public AbstractSimulationStarter(MersenneTwisterFast random,
 			Schedule schedule) {

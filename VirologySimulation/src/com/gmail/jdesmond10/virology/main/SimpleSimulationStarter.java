@@ -33,6 +33,10 @@ public class SimpleSimulationStarter extends AbstractSimulationStarter {
 		Lecture lmath = new Lecture(math, "MA1024");
 		Lecture lbcb = new Lecture(bcb, "BCB100x");
 
+		globalSchedule.addLecture(lcs);
+		globalSchedule.addLecture(lmath);
+		globalSchedule.addLecture(lbcb);
+
 		saa.registerForClass(lcs);
 		saa.registerForClass(lbcb);
 		dez.registerForClass(lcs);
