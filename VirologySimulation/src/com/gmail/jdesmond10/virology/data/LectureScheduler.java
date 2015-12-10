@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.gmail.jdesmond10.virology.main.Lecture;
 import com.gmail.jdesmond10.virology.main.MaxCapicityLecture;
@@ -15,6 +16,7 @@ import ec.util.MersenneTwisterFast;
 public class LectureScheduler {
 
 	// SUGGESTION this should probably just be a Lecture...
+	// SUGGESTION change this to set as well?
 	private List<MaxCapicityLecture> masterList;
 	private MersenneTwisterFast random;
 
@@ -32,12 +34,24 @@ public class LectureScheduler {
 		this.masterList.add(lecture);
 	}
 
-	public int getNumberOfLectures() {
-		return masterList.size();
+	/**
+	 * Registers a list of students for the existing lectures within this
+	 * LectureScheduler. Ensures that there are no meeting conflicts.
+	 * 
+	 * @param studentList
+	 *            List of unique students to be registered for classes.
+	 */
+	public void registerAllStudents(Set<Student> studentList) {
+		for (Iterator<Student> iter = studentList.iterator(); iter.hasNext();) {
+			Student student = iter.next();
+
+			this.registerStudentForClasses(student);
+		}
 	}
 
 	/**
-	 * Randomly assigns a student to three classes.
+	 * Randomly assigns a student to three classes. Ensures there will be no
+	 * time conflicts.
 	 */
 	public void registerStudentForClasses(Student student) {
 		Collection<Lecture> threeLectures = getRandomThreeLectures();
@@ -107,6 +121,10 @@ public class LectureScheduler {
 		int maxIndex = getNumberOfLectures() - 1;
 		// SUGGESTION Ensure this is actually correct logic. No tests.
 		return masterList.get(random.nextInt() % maxIndex);
+	}
+
+	public int getNumberOfLectures() {
+		return masterList.size();
 	}
 
 }
