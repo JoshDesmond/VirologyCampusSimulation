@@ -10,7 +10,7 @@ import sim.engine.Steppable;
 public class Student implements Steppable {
 
 	private static final long serialVersionUID = 1L;
-	private boolean isSick;
+	public boolean isSick;
 	private CourseSchedule schedule;
 	/**
 	 * Optional field in Student. If it exists, it will be used for toString()
@@ -49,8 +49,6 @@ public class Student implements Steppable {
 		CampusState state = (CampusState) campusState;
 		final long simTime = state.schedule.getSteps();
 
-		tempMethod(simTime, state);
-
 		// Now determine neighboring students.
 		Optional<Lecture> l = schedule.getLectureAtTime(simTime,
 				state.timeSimulationUtil);
@@ -59,16 +57,18 @@ public class Student implements Steppable {
 		if (!l.isPresent())
 			return;
 
-		// If in class
-		Collection<Student> neighbors = l.get().getStudents();
+		Lecture currentLecture = l.get();
 
-		stepSicknessOdds(neighbors);
+		// If in class
+		Collection<Student> neighbors = currentLecture.getStudents();
+
+		stepSicknessOdds(neighbors, state);
 	}
 
 	@Deprecated
 	private void tempMethod(long simTime, CampusState state) {
-		// TODO Delete this am just testing
-		if (simTime == 15) {
+		// FIXME Delete this am just testing
+		if (false) {
 			System.out.println(state.getCurrentRealTime() + ": "
 					+ state.getGlobalLectures().toString());
 
@@ -77,13 +77,20 @@ public class Student implements Steppable {
 	}
 
 	/**
-	 * Given a list of neighbors, determines if this student will get sick.
+	 * Given a list of neighbors and an algorithm, determines if this student
+	 * will get sick.
 	 * 
+	 * @param virusAlgorithm
+	 *            The algorithm from the state of the simulation which will be
+	 *            used to calculate sickness.
 	 * @param neighbors
 	 *            a list of adjacent students (or list of students in class with
 	 *            this)
+	 * @param random
+	 * 
 	 */
-	private void stepSicknessOdds(Collection<Student> neighbors) {
+	private void stepSicknessOdds(Collection<Student> neighbors,
+			CampusState state) {
 
 		for (Iterator<Student> iterator = neighbors.iterator(); iterator
 				.hasNext();) {
@@ -96,6 +103,10 @@ public class Student implements Steppable {
 			if (CampusState.DEBUG) {
 				System.out.println(String.format("checking %s with %s",
 						otherStudent.toString(), this.toString()));
+			}
+
+			if (state.virusAlgorithm.simulateContact(this, otherStudent, state)) {
+				this.isSick = true;
 			}
 
 			// TODO Auto-generated method stub

@@ -6,8 +6,13 @@ package com.gmail.jdesmond10.virology.main;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Iterator;
 
 import sim.engine.SimState;
+import sim.field.continuous.Continuous2D;
+import sim.field.grid.DoubleGrid2D;
+import sim.field.network.Network;
+import sim.util.Double2D;
 
 import com.gmail.jdesmond10.virology.data.RandomSimulationStarter;
 import com.gmail.jdesmond10.virology.time.TimeSimulationUtil;
@@ -38,6 +43,12 @@ public class CampusState extends SimState {
 	public TimeSimulationUtil timeSimulationUtil;
 	/** */
 	private final AbstractSimulationStarter simStarter;
+	/** A representation of the state of simulation used for displays. */
+	public DoubleGrid2D lectureGrid;
+	public VirusAlgorithm virusAlgorithm = new VirusAlgorithm();
+
+	public Network interactions = new Network(true);
+	public Continuous2D studentGrid;
 
 	/**
 	 * @see sim.engine.SimState#SimState(long seed)
@@ -45,6 +56,7 @@ public class CampusState extends SimState {
 	public CampusState(long seed) {
 		super(seed);
 
+		// simStarter = new SimpleSimulationStarter(random, schedule);
 		simStarter = new RandomSimulationStarter(random, schedule);
 	}
 
@@ -75,10 +87,36 @@ public class CampusState extends SimState {
 
 		this.studentList = simStarter.getStudentList();
 		this.globalCourseSchedule = simStarter.getGlobalSchedule();
+
+		studentGrid = new Continuous2D(1, 30, 30);
+
+		lectureGrid = globalCourseSchedule.generateLectureGrid();
+		a = 1;
+		b = 0;
+
+		for (Iterator<Student> iterator = studentList.iterator(); iterator
+				.hasNext();) {
+			Student student = iterator.next();
+
+			interactions.addNode(student);
+			Double2D nextLocation = nextLocation();
+			studentGrid.setObjectLocation(student, nextLocation);
+		}
+
 	}
 
-	public Collection<Student> getStudents() {
-		return this.studentList;
+	private int a = 1; // TODO DELETE THESE
+	private int b = 0; // TODO JUST TESTIGN DELETE
+
+	private Double2D nextLocation() {
+		if (a % 25 == 0) { // TODO actually build this with another class and
+			// correctly.
+			a = 0;
+			b++;
+		}
+
+		a++;
+		return new Double2D(a, b);
 	}
 
 	/** Returns a string representing the current time */
@@ -88,11 +126,13 @@ public class CampusState extends SimState {
 		return currentLocalDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
 	}
 
+	public Collection<Student> getStudents() {
+		return this.studentList;
+	}
+
 	/** Returns a list of all the lectures in the simulation */
 	public GlobalCourseSchedule getGlobalLectures() {
 		return globalCourseSchedule;
 	}
-
-
 
 }

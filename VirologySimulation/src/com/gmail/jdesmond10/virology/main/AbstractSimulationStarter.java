@@ -39,10 +39,11 @@ public abstract class AbstractSimulationStarter {
 
 	/**
 	 * This method should be called once and only once for each simulation. It
-	 * creates a collection of students, and schedules each one. It also builds
-	 * the global schedule for the simulation. After calling init(), you can
-	 * call {@link #getGlobalSchedule()} and {@link #getStudentList()} to
-	 * populate the fields in the simulation.
+	 * creates a collection of students, and schedules each one. Also schedules
+	 * the GlobalCourseSchedule. It also builds the global schedule for the
+	 * simulation. After calling init(), you can call
+	 * {@link #getGlobalSchedule()} and {@link #getStudentList()} to populate
+	 * the fields in the simulation.
 	 * 
 	 * Any method which extends init() must be sure to set wasInitiated to be
 	 * true, and it MUST instantiate the two fields this.students and

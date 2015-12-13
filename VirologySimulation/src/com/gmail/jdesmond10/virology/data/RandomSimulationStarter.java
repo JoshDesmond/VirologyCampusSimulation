@@ -25,8 +25,12 @@ public class RandomSimulationStarter extends AbstractSimulationStarter {
 		this.students = new HashSet<Student>(500);
 		this.globalSchedule = new GlobalCourseSchedule();
 
-		for (int i = 1; i <= 500; i++) {
-			initStudent(i);
+		for (int i = 1; i <= 1500; i++) {
+			Student newStudent = initStudent(i);
+
+			if (i < 2) {
+				newStudent.isSick = true;
+			}
 		}
 
 		LectureScheduler lectureScheduler = EmptyScheduleGenerator
@@ -35,11 +39,13 @@ public class RandomSimulationStarter extends AbstractSimulationStarter {
 		lectureScheduler.registerAllStudents((Set<Student>) this.students);
 
 		final List<Lecture> lectureList = lectureScheduler.getLectureList();
-		for (Iterator<Lecture> iterator = lectureList.iterator(); iterator.hasNext();) {
+		for (Iterator<Lecture> iterator = lectureList.iterator(); iterator
+				.hasNext();) {
 			Lecture lecture = iterator.next();
 			globalSchedule.addLecture(lecture);
 		}
 
+		schedule.scheduleRepeating(globalSchedule);
 		this.wasInitiated = true;
 	}
 

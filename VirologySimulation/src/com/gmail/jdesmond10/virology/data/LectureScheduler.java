@@ -151,7 +151,7 @@ public class LectureScheduler {
 	 * @return a random lecture from the list of lectures.
 	 */
 	private Lecture getRandomLecture() {
-		int maxIndex = getNumberOfLectures() - 1;
+		int maxIndex = getNumberOfLectures();
 		// SUGGESTION Ensure this is actually correct logic. No tests.
 		int nextInt = Math.abs(random.nextInt());
 		return masterList.get(nextInt % maxIndex);

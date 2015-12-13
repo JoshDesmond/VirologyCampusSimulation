@@ -25,7 +25,7 @@ public class EmptyScheduleGenerator {
 			ImmutableMap.<Integer, Integer>builder()
 			.put(75, 10)
 			.put(30, 40)
-			.put(10, 10)
+			.put(10, 300)
 			.build();
 	//@formatter:on
 
@@ -82,7 +82,7 @@ public class EmptyScheduleGenerator {
 	 */
 	private String getNextCourseCode(int lectureSize) {
 		currentCourseCode++;
-		return String.format("C%s-%s", currentCourseCode, lectureSize);
+		return String.format("C%s-S%s", currentCourseCode, lectureSize);
 	}
 
 	/**

@@ -25,6 +25,8 @@ public class SimpleSimulationStarter extends AbstractSimulationStarter {
 		Student dez = initStudent();
 		Student hayls = initStudent();
 
+		dez.isSick = true;
+
 		MeetingTimes cs = new SimpleDailyMeetingTimes(14);
 		MeetingTimes math = new SimpleDailyMeetingTimes(14);
 		MeetingTimes bcb = new SimpleDailyMeetingTimes(15);
@@ -45,6 +47,7 @@ public class SimpleSimulationStarter extends AbstractSimulationStarter {
 		hayls.registerForClass(lmath);
 
 
+		schedule.scheduleRepeating(globalSchedule);
 		this.wasInitiated = true;
 	}
 

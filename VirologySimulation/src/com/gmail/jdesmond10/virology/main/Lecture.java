@@ -14,6 +14,7 @@ import com.gmail.jdesmond10.virology.time.SimpleDailyMeetingTimes;
  * 
  */
 public class Lecture implements Comparable<Lecture> {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * {@link MeetingTimes}
 	 */
@@ -68,7 +69,7 @@ public class Lecture implements Comparable<Lecture> {
 	 */
 
 	public void addStudent(Student student) {
-		if (this.getNumberOfStudents() >= this.getMaxCapicity()) {
+		if (isFull()) {
 			throw new IllegalArgumentException(
 					String.format(
 							"Too many students added to class. Capicity of %s exceeded.",
@@ -133,7 +134,8 @@ public class Lecture implements Comparable<Lecture> {
 	public double getSicknessScore() {
 		int totalCount = this.getNumberOfStudents();
 		int sickCount = 0;
-		for (Iterator<Student> iterator = students.iterator(); iterator.hasNext();) {
+		for (Iterator<Student> iterator = students.iterator(); iterator
+				.hasNext();) {
 			Student student = iterator.next();
 
 			if (student.getIsSick()) {
@@ -210,13 +212,10 @@ public class Lecture implements Comparable<Lecture> {
 		if (ID != null)
 			builder.append("ID=").append(ID).append(", ");
 		builder.append("maxCapicity=").append(maxCapicity)
-		.append(", numStudents=")
-		.append(getNumberOfStudents())
-		.append(", SicknessScore()=")
-		.append(getSicknessScore()).append("]");
+		.append(", numStudents=").append(getNumberOfStudents())
+		.append(", SicknessScore()=").append(getSicknessScore())
+		.append("]");
 		return builder.toString();
 	}
-
-
 
 }
