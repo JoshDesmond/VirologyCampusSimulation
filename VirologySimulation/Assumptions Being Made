@@ -11,3 +11,5 @@ A GlobalCourseSchedule can determine the state of all students at any given
  * time. The most important method avaiable is {@link #getLectureAtTime(int)},
  * which can be used by a student in its step method to determine who its
  * neighbors are.
+ 
+ Question: Should resistance or health factor or susceptibility be normally distributed, or what?

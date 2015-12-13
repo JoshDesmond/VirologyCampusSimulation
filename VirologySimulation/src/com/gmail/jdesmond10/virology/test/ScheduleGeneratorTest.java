@@ -23,8 +23,7 @@ public class ScheduleGeneratorTest {
 	@Test
 	public void testEmptyScheduleGeneratorRuns() {
 		// Simply tests if the generateNewSchedule function builds a scheduler
-		// with at least one lecture. FIXME error occurred once where attempted
-		// to add a student to a full class.
+		// with at least one lecture.
 		LectureScheduler l = EmptyScheduleGenerator
 				.generateNewSchedule(new MersenneTwisterFast());
 
@@ -35,6 +34,9 @@ public class ScheduleGeneratorTest {
 	public void testLectureSchedulerHandlesRegistration() {
 		LectureScheduler l = EmptyScheduleGenerator
 				.generateNewSchedule(new MersenneTwisterFast());
+
+		// FIXME error occurred once where attempted to add a student to a full
+		// lecture
 
 		for (int i = 100; i > 0; i--) {
 			l.registerStudentForClasses(new Student());

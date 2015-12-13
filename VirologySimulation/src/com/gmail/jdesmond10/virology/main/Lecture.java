@@ -2,6 +2,7 @@ package com.gmail.jdesmond10.virology.main;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import com.gmail.jdesmond10.virology.time.MeetingTimes;
@@ -122,6 +123,28 @@ public class Lecture implements Comparable<Lecture> {
 		return this.getNumberOfStudents() >= this.getMaxCapicity();
 	}
 
+	/**
+	 * Used for graphical or data representations of a lecture. Uses the
+	 * healthiness of each student and represents the result as a decimal
+	 * representing percent.
+	 * 
+	 * @return
+	 */
+	public double getSicknessScore() {
+		int totalCount = this.getNumberOfStudents();
+		int sickCount = 0;
+		for (Iterator<Student> iterator = students.iterator(); iterator.hasNext();) {
+			Student student = iterator.next();
+
+			if (student.getIsSick()) {
+				sickCount++;
+			}
+		}
+
+		// SUGGESTION is there a faster or better way of doing that division.
+		return sickCount * 1.0 / (totalCount * 1.0);
+	}
+
 	@Override
 	public int compareTo(Lecture o) {
 		// SUGGESTION this is wonky logic. Maybe I should have two types of
@@ -141,16 +164,15 @@ public class Lecture implements Comparable<Lecture> {
 			}
 		}
 
-		// otherwise go of their capacity, then ID.
+		// otherwise go of their capacity,
 
-		diff = this.getMaxCapicity() - o.getMaxCapicity();
-
+		diff = o.getMaxCapicity() - this.getMaxCapicity();
 		if (diff != 0) {
 			return diff;
 		}
 
+		// Otherwise by unique ID
 		diff = this.ID.compareTo(o.ID);
-
 		return diff;
 	}
 
@@ -188,13 +210,12 @@ public class Lecture implements Comparable<Lecture> {
 		if (ID != null)
 			builder.append("ID=").append(ID).append(", ");
 		builder.append("maxCapicity=").append(maxCapicity)
-		.append(", getNumberOfStudents()=")
-		.append(getNumberOfStudents()).append("]");
+		.append(", numStudents=")
+		.append(getNumberOfStudents())
+		.append(", SicknessScore()=")
+		.append(getSicknessScore()).append("]");
 		return builder.toString();
 	}
-
-
-
 
 
 

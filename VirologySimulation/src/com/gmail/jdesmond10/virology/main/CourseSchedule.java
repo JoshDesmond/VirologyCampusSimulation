@@ -47,7 +47,6 @@ public class CourseSchedule {
 							"Class overlap after adding lecture %s to current schedule for CourseSchedule %s",
 							lecture, this));
 		}
-
 	}
 
 	/**

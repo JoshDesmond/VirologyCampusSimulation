@@ -126,7 +126,8 @@ public class LectureScheduler {
 			// else
 			searchingForSecondLecture = false;
 			// SUGGESTION have this short circuit if you keep checking and you
-			// run out of options.
+			// run out of options. Otherwise keep track of how many spots are
+			// remaining or something.
 		}
 
 		boolean searchingForThirdLecture = true;
@@ -154,6 +155,11 @@ public class LectureScheduler {
 		// SUGGESTION Ensure this is actually correct logic. No tests.
 		int nextInt = Math.abs(random.nextInt());
 		return masterList.get(nextInt % maxIndex);
+
+		// TODO do a weighted retrieval of Lectures. That is don't make it
+		// random, but make it so it chooses one based on the capacity of it,
+		// with classes of higher capacity having a proportionally higher
+		// weight.
 	}
 
 	public List<Lecture> getLectureList() {
