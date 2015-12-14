@@ -23,9 +23,12 @@ public class EmptyScheduleGenerator {
 	//@formatter:off
 	private static final Map<Integer, Integer> LECTURE_RULES =
 			ImmutableMap.<Integer, Integer>builder()
-			.put(75, 10)
-			.put(30, 40)
-			.put(10, 10)
+			.put(500, 45)
+			.put(300, 300)
+			.put(100, 1500)
+			.put(200, 400)
+			.put(30, 900)
+			.put(10, 10000)
 			.build();
 	//@formatter:on
 

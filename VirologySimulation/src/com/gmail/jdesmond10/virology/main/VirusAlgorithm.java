@@ -13,6 +13,7 @@ public class VirusAlgorithm {
 
 		if (state.random.nextBoolean(.005)) {
 			state.interactions.addEdge(otherStudent, student, true);
+			// TODO add nodes back.
 			return true;
 		}
 

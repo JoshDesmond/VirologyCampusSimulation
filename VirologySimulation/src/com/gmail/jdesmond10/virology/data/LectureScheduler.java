@@ -28,10 +28,12 @@ public class LectureScheduler {
 	 */
 	private List<Lecture> masterList;
 	private MersenneTwisterFast random;
+	private int count;
 
 	public LectureScheduler(MersenneTwisterFast random) {
 		this.random = random;
 		this.masterList = new LinkedList<Lecture>();
+		count = 0;
 	}
 
 	/**
@@ -79,7 +81,20 @@ public class LectureScheduler {
 			Lecture lecture = iterator.next();
 
 			student.registerForClass(lecture);
+			if (count++ > 30000) {
+				System.out.println(count);
+			}
 		}
+	}
+
+	/**
+	 * Intended for use when generating a schedule where there is only one class. Adds
+	 * the student to a random class.
+	 */
+	public void registerStduentForSingleClass(Student student) {
+		Lecture lecture = getRandomLecture();
+
+		student.registerForClass(lecture);
 	}
 
 	/**

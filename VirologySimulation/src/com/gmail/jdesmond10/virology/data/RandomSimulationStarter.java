@@ -20,12 +20,14 @@ public class RandomSimulationStarter extends AbstractSimulationStarter {
 		super(random, schedule);
 	}
 
+	private static final int NUM_STUDENTS = 50000;
+
 	@Override
 	public void init() {
-		this.students = new HashSet<Student>(500);
+		this.students = new HashSet<Student>(NUM_STUDENTS);
 		this.globalSchedule = new GlobalCourseSchedule();
 
-		for (int i = 1; i <= 500; i++) {
+		for (int i = 1; i <= NUM_STUDENTS; i++) {
 			Student newStudent = initStudent(i);
 
 			if (i < 2) {
