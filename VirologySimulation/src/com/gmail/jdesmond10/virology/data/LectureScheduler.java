@@ -22,7 +22,6 @@ import ec.util.MersenneTwisterFast;
  */
 public class LectureScheduler {
 
-	// SUGGESTION this should probably just be a Lecture...
 	/**
 	 * list of lectures. Must be treated like a set, although it needs to be
 	 * able to access a random item so I'm using LinkedList.
@@ -152,7 +151,6 @@ public class LectureScheduler {
 	 */
 	private Lecture getRandomLecture() {
 		int maxIndex = getNumberOfLectures();
-		// SUGGESTION Ensure this is actually correct logic. No tests.
 		int nextInt = Math.abs(random.nextInt());
 		return masterList.get(nextInt % maxIndex);
 

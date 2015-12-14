@@ -65,17 +65,6 @@ public class Student implements Steppable {
 		stepSicknessOdds(neighbors, state);
 	}
 
-	@Deprecated
-	private void tempMethod(long simTime, CampusState state) {
-		// FIXME Delete this am just testing
-		if (false) {
-			System.out.println(state.getCurrentRealTime() + ": "
-					+ state.getGlobalLectures().toString());
-
-			state.kill();
-		}
-	}
-
 	/**
 	 * Given a list of neighbors and an algorithm, determines if this student
 	 * will get sick.

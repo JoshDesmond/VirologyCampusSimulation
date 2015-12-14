@@ -25,7 +25,7 @@ public class EmptyScheduleGenerator {
 			ImmutableMap.<Integer, Integer>builder()
 			.put(75, 10)
 			.put(30, 40)
-			.put(10, 300)
+			.put(10, 10)
 			.build();
 	//@formatter:on
 

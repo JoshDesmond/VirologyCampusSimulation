@@ -58,6 +58,9 @@ public class CampusState extends SimState {
 
 		// simStarter = new SimpleSimulationStarter(random, schedule);
 		simStarter = new RandomSimulationStarter(random, schedule);
+
+		// Handle Initializing start time.
+		this.timeSimulationUtil = new TimeSimulationUtil(STARTING_DATE);
 	}
 
 	/**
@@ -78,9 +81,6 @@ public class CampusState extends SimState {
 	 */
 	public void start() {
 		super.start();
-
-		// Handle Initializing start time.
-		this.timeSimulationUtil = new TimeSimulationUtil(STARTING_DATE);
 
 		// Handle Initializing Students and globalSchedule
 		simStarter.init();
@@ -126,13 +126,25 @@ public class CampusState extends SimState {
 		return currentLocalDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
 	}
 
-	public Collection<Student> getStudents() {
-		return this.studentList;
+	public double getPercentageSick() {
+		if (globalCourseSchedule == null) {
+			return 0;
+		}
+		int totalCount = 0;
+		int sickCount = 0;
+		for (Lecture l : globalCourseSchedule.getLectures()) {
+			for (Student s : l.getStudents()) {
+				totalCount++;
+				if (s.getIsSick()) {
+					sickCount++;
+				}
+			}
+		}
+
+		return (double) (sickCount) / (double) (totalCount);
 	}
 
-	/** Returns a list of all the lectures in the simulation */
-	public GlobalCourseSchedule getGlobalLectures() {
-		return globalCourseSchedule;
+	public void printSerializeNetwork() {
+		DataPrinter.printSerializeNetwork(interactions);
 	}
-
 }

@@ -7,6 +7,7 @@ import sim.display.Controller;
 import sim.display.Display2D;
 import sim.display.GUIState;
 import sim.engine.SimState;
+import sim.portrayal.Inspector;
 import sim.portrayal.SimplePortrayal2D;
 import sim.portrayal.continuous.ContinuousPortrayal2D;
 import sim.portrayal.grid.ValueGridPortrayal2D;
@@ -25,6 +26,10 @@ public class CampusStateWithUI extends GUIState {
 	public NetworkPortrayal2D networkPortrayal = new NetworkPortrayal2D();
 	public ContinuousPortrayal2D studentGridPortrayal = new ContinuousPortrayal2D();
 
+	public Display2D timeDisplay;
+	public JFrame timeFrame;
+	public SimplePortrayal2D timePortrayal;
+
 	public CampusStateWithUI(SimState state) {
 		super(state);
 	}
@@ -34,6 +39,7 @@ public class CampusStateWithUI extends GUIState {
 		Console c = new Console(vid);
 		c.setVisible(true);
 	}
+
 
 	public CampusStateWithUI() {
 		super(new CampusState(System.currentTimeMillis()));
@@ -47,7 +53,15 @@ public class CampusStateWithUI extends GUIState {
 	public void start() {
 		super.start();
 		setupPortrayals();
-		this.getInspector().setVolatile(true);
+		this.getInspector();
+	}
+
+
+	@Override
+	public Inspector getInspector() {
+		Inspector s = super.getInspector();
+		s.setVolatile(true);
+		return s;
 	}
 
 	@Override
@@ -72,12 +86,16 @@ public class CampusStateWithUI extends GUIState {
 		SimpleEdgePortrayal2D simpleEdgePortrayal2D = new SimpleEdgePortrayal2D();
 		networkPortrayal.setPortrayalForAll(simpleEdgePortrayal2D);
 
+
+
 		// reschedule the displayer
 		networkDisplay.reset();
 		lectureGridDisplay.reset();
+		timeDisplay.reset();
 		// redraw the display
 		networkDisplay.repaint();
 		lectureGridDisplay.repaint();
+		timeDisplay.repaint();
 	}
 
 	@Override
@@ -103,6 +121,12 @@ public class CampusStateWithUI extends GUIState {
 		lectureGridFrame.setVisible(true);
 		lectureGridDisplay.attach(gridPortrayal, "Grid");
 		c.registerFrame(lectureGridFrame);
+
+		timeDisplay = new Display2D(600, 100, this);
+		timeFrame = timeDisplay.createFrame();
+		timeFrame.setTitle("Simulation Time");
+		//timeDisplay.attach(timePortrayal, "Time Display");
+		c.registerFrame(timeFrame);
 	}
 
 	@Override

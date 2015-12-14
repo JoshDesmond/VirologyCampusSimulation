@@ -25,7 +25,7 @@ public class RandomSimulationStarter extends AbstractSimulationStarter {
 		this.students = new HashSet<Student>(500);
 		this.globalSchedule = new GlobalCourseSchedule();
 
-		for (int i = 1; i <= 1500; i++) {
+		for (int i = 1; i <= 500; i++) {
 			Student newStudent = initStudent(i);
 
 			if (i < 2) {

@@ -102,6 +102,13 @@ public class GlobalCourseSchedule implements Steppable {
 		updateGridValues();
 		CampusState campusState = (CampusState) state;
 		campusState.lectureGrid = this.lectureGrid;
+
+		// FIXME delete this
+		if (state.schedule.getTime() == 2500) {
+			campusState.printSerializeNetwork();
+			campusState.kill();
+		}
+
 	}
 
 	private void updateGridValues() {
