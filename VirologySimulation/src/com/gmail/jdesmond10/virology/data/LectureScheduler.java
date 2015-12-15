@@ -81,9 +81,6 @@ public class LectureScheduler {
 			Lecture lecture = iterator.next();
 
 			student.registerForClass(lecture);
-			if (count++ > 30000) {
-				System.out.println(count);
-			}
 		}
 	}
 
@@ -169,7 +166,7 @@ public class LectureScheduler {
 		int nextInt = Math.abs(random.nextInt());
 		return masterList.get(nextInt % maxIndex);
 
-		// TODO do a weighted retrieval of Lectures. That is don't make it
+		// SUGGESTION do a weighted retrieval of Lectures. That is don't make it
 		// random, but make it so it chooses one based on the capacity of it,
 		// with classes of higher capacity having a proportionally higher
 		// weight.

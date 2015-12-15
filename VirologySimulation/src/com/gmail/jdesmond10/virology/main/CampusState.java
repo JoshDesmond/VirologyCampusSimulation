@@ -14,6 +14,7 @@ import sim.field.grid.DoubleGrid2D;
 import sim.field.network.Network;
 import sim.util.Double2D;
 
+import com.gmail.jdesmond10.virology.data.DataPrinter;
 import com.gmail.jdesmond10.virology.data.RandomSimulationStarter;
 import com.gmail.jdesmond10.virology.time.TimeSimulationUtil;
 
@@ -57,7 +58,7 @@ public class CampusState extends SimState {
 		super(seed);
 
 		// simStarter = new SimpleSimulationStarter(random, schedule);
-		simStarter = new RandomSimulationStarter(random, schedule);
+		simStarter = new RandomSimulationStarter(random, schedule, 3);
 
 		// Handle Initializing start time.
 		this.timeSimulationUtil = new TimeSimulationUtil(STARTING_DATE);
@@ -90,6 +91,7 @@ public class CampusState extends SimState {
 
 		studentGrid = new Continuous2D(1, 30, 30);
 
+		// Below is definitions for building the grid of students display.
 		lectureGrid = globalCourseSchedule.generateLectureGrid();
 		a = 1;
 		b = 0;
@@ -102,11 +104,18 @@ public class CampusState extends SimState {
 			Double2D nextLocation = nextLocation();
 			studentGrid.setObjectLocation(student, nextLocation);
 		}
-
 	}
 
 	private int a = 1; // TODO DELETE THESE
-	private int b = 0; // TODO JUST TESTIGN DELETE
+	private int b = 0; // TODO JUST TESTING DELETE
+
+	/*
+	 * EDIT: Okay, so I never got around towards making a nice version of this,
+	 * so here's an explanation of what's going on:
+	 * 
+	 * Basically, there's a 25 by n grid of nodes being drawn, and when the
+	 * simulation places students at locations, it does it by using this method.
+	 */
 
 	private Double2D nextLocation() {
 		if (a % 25 == 0) { // TODO actually build this with another class and
@@ -144,7 +153,33 @@ public class CampusState extends SimState {
 		return (double) (sickCount) / (double) (totalCount);
 	}
 
+	@Deprecated
 	public void printSerializeNetwork() {
 		DataPrinter.printSerializeNetwork(interactions);
+	}
+
+	/** Returns the number of students which are currently sick */
+	public int getNumberOfStudentsSick() {
+		if (studentList == null)
+			return 0;
+		int totalStudents = 0;
+		for (Student s : studentList) {
+			if (s.isSick) {
+				totalStudents++;
+			}
+		}
+		return totalStudents;
+	}
+
+	public int getNumberOfStudentsHealthy() {
+		if (studentList == null)
+			return 0;
+		return studentList.size() - getNumberOfStudentsSick();
+	}
+
+	@Deprecated
+	public void printStudentNetwork() {
+		DataPrinter.printSocialNetwork(null);
+
 	}
 }

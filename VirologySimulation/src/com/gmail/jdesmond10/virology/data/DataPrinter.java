@@ -1,14 +1,18 @@
-package com.gmail.jdesmond10.virology.main;
+package com.gmail.jdesmond10.virology.data;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import sim.field.network.Edge;
 import sim.field.network.Network;
 
+import com.gmail.jdesmond10.virology.main.Student;
+
 public class DataPrinter {
 	public static void printSerializeNetwork(Network interactions) {
+		// Quick script I wrote just to print out the adjacency matrix.
 		Edge[][] matrix = interactions.getAdjacencyMatrix();
 		CharSequence[][] newMatrix = new CharSequence[matrix.length][matrix[0].length];
 
@@ -36,6 +40,18 @@ public class DataPrinter {
 			}
 			out.close();
 		} catch (IOException e) {
+		}
+
+	}
+
+	@Deprecated
+	public static void printSocialNetwork(List<Student> students) {
+		// Quick script to print all nodes and connections.
+		Network interactions = new Network(false);
+
+		for (Student s : students) {
+			interactions.addNode(s);
+			interactions.addEdge(s, null, null);
 		}
 
 	}

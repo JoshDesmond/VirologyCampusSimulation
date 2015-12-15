@@ -35,6 +35,7 @@ public class CampusStateWithUI extends GUIState {
 	}
 
 	public static void main(String[] args) {
+
 		CampusStateWithUI vid = new CampusStateWithUI();
 		Console c = new Console(vid);
 		c.setVisible(true);

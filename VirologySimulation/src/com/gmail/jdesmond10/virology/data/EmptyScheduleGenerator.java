@@ -21,7 +21,7 @@ public class EmptyScheduleGenerator {
 	 * generated. Uses Guava's ImmutableMap.
 	 */
 	//@formatter:off
-	private static final Map<Integer, Integer> LECTURE_RULES =
+	private  Map<Integer, Integer> lectureRules =
 			ImmutableMap.<Integer, Integer>builder()
 			.put(500, 45)
 			.put(300, 300)
@@ -32,8 +32,19 @@ public class EmptyScheduleGenerator {
 			.build();
 	//@formatter:on
 
+	/** default constructor, no input given. */
 	public EmptyScheduleGenerator(MersenneTwisterFast random) {
 		this.random = random;
+		this.lectureRules = ImmutableMap.<Integer, Integer> builder()
+				.put(500, 45).put(300, 300).put(100, 1500).put(200, 400)
+				.put(30, 900).put(10, 10000).build();
+	}
+
+	/** Constructor with given lectureRules */
+	public EmptyScheduleGenerator(MersenneTwisterFast random2,
+			Map<Integer, Integer> lectureRules2) {
+		this.random = random2;
+		this.lectureRules = lectureRules2;
 	}
 
 	/**
@@ -43,32 +54,17 @@ public class EmptyScheduleGenerator {
 	 * @see LectureScheduler
 	 * @return LectureScheduler to be populated with Classes.
 	 */
-	public static LectureScheduler generateNewSchedule(
-			MersenneTwisterFast givenRandom) {
-
-
-		EmptyScheduleGenerator e = new EmptyScheduleGenerator(givenRandom);
-		return e.generateSchedule();
-
-	}
-
-	/**
-	 * Builds a schedule from scratch, using the rules defined by LECTURE_RULES.
-	 * 
-	 * @return new LectureScheduler.
-	 */
-	protected LectureScheduler generateSchedule() {
+	public LectureScheduler generateSchedule() {
 		LectureScheduler lectureScheduler = new LectureScheduler(random);
 
-		for (Map.Entry<Integer, Integer> entry : LECTURE_RULES.entrySet()) {
+		for (Map.Entry<Integer, Integer> entry : lectureRules.entrySet()) {
 			Integer lectureSize = entry.getKey();
 			Integer numOfLectures = entry.getValue();
 
 			for (int i = numOfLectures; i > 0; i--) {
 
-				lectureScheduler.addClass(new Lecture(
-						getNextCourseTime(), getNextCourseCode(lectureSize),
-						lectureSize));
+				lectureScheduler.addClass(new Lecture(getNextCourseTime(),
+						getNextCourseCode(lectureSize), lectureSize));
 			}
 		}
 

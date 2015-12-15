@@ -1,9 +1,13 @@
-package com.gmail.jdesmond10.virology.main;
+package com.gmail.jdesmond10.virology.data;
 
 import java.util.ArrayList;
 
 import sim.engine.Schedule;
 
+import com.gmail.jdesmond10.virology.main.AbstractSimulationStarter;
+import com.gmail.jdesmond10.virology.main.GlobalCourseSchedule;
+import com.gmail.jdesmond10.virology.main.Lecture;
+import com.gmail.jdesmond10.virology.main.Student;
 import com.gmail.jdesmond10.virology.time.MeetingTimes;
 import com.gmail.jdesmond10.virology.time.SimpleDailyMeetingTimes;
 

@@ -104,8 +104,8 @@ public class GlobalCourseSchedule implements Steppable {
 		campusState.lectureGrid = this.lectureGrid;
 
 		// FIXME delete this
-		if (state.schedule.getTime() == 2500) {
-			campusState.printSerializeNetwork();
+		if (state.schedule.getTime() == -5) {
+			campusState.printStudentNetwork();
 			campusState.kill();
 		}
 
@@ -123,12 +123,10 @@ public class GlobalCourseSchedule implements Steppable {
 					return;
 				}
 
-
 				Lecture lecture = lectureListIterator.next();
 
 				grid[i][j] = lecture.getSicknessScore();
 			}
 		}
-
 	}
 }
