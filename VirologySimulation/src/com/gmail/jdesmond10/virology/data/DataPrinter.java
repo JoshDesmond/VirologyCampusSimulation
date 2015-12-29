@@ -10,9 +10,18 @@ import sim.field.network.Network;
 
 import com.gmail.jdesmond10.virology.main.Student;
 
+/**
+ * This class contains two quick scripts I wrote just to print out the adjacency
+ * matrix. It's not actually useful for much, just keeping this around for
+ * reference.
+ * 
+ */
+@Deprecated
 public class DataPrinter {
+
+	@Deprecated
 	public static void printSerializeNetwork(Network interactions) {
-		// Quick script I wrote just to print out the adjacency matrix.
+
 		Edge[][] matrix = interactions.getAdjacencyMatrix();
 		CharSequence[][] newMatrix = new CharSequence[matrix.length][matrix[0].length];
 
