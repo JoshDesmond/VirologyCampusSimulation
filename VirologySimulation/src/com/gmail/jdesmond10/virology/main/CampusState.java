@@ -60,7 +60,7 @@ public class CampusState extends SimState {
 		// simStarter = new SimpleSimulationStarter(random, schedule);
 		simStarter = new RandomSimulationStarter(random, schedule, 1);
 		// CHANGE THE ABOVE VALUE ("1" CURRENTLY), TO 2 FOR A GIANT SIMULATION,
-		// AND 3 FOR A MEDIUM SIZED SIMULATION.
+		// AND 3 FOR A MEDIUM SIZED SIMULATION. // TODO do this with ENUMs.
 		// *************************************************************
 		// *************************************************************
 		// *************************************************************
@@ -106,8 +106,9 @@ public class CampusState extends SimState {
 		// Below is definitions for building the grid of students display.
 		lectureGrid = globalCourseSchedule.generateLectureGrid();
 
-		GUILocationBuilder guiBuilder = new GUILocationBuilder(studentList.size());
-		studentGrid = guiBuilder.generateContinousGrid();
+		GUIStudentNetworkLocationBuilder guiBuilder = new GUIStudentNetworkLocationBuilder(
+				studentList.size());
+		studentGrid = guiBuilder.generateContinuousGrid();
 
 		for (Iterator<Student> iterator = studentList.iterator(); iterator
 				.hasNext();) {
