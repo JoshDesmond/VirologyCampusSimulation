@@ -12,6 +12,9 @@ import com.gmail.jdesmond10.virology.time.SimpleDailyMeetingTimes;
  * An object representing a set of course meetings, which contains a unique ID,
  * and a set of students in the lecture/class.
  * 
+ * On comparable: This is used to create a sorted set of lectures, which is
+ * useful for creating visualizations of the simulation. See
+ * {@link #compareTo(Lecture)} for details on how compare works.
  */
 public class Lecture implements Comparable<Lecture> {
 	private static final long serialVersionUID = 1L;
@@ -147,6 +150,12 @@ public class Lecture implements Comparable<Lecture> {
 		return sickCount * 1.0 / (totalCount * 1.0);
 	}
 
+	/**
+	 * If both Lectures use an instance of SimpleDailyMeetingTimes, then this
+	 * method will compare them using that. If that is equal, or either lecture
+	 * is not of type SimpleDailyMeetingTimes, then this method will compare
+	 * them using their max capacity, and then by their unique ID.
+	 */
 	@Override
 	public int compareTo(Lecture o) {
 		// SUGGESTION this is wonky logic. Maybe I should have two types of

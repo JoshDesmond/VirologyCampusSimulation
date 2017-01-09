@@ -91,7 +91,7 @@ public class EmptyScheduleGenerator {
 	 * @return
 	 */
 	private MeetingTimes getNextCourseTime() {
-		// TODO Make this random, not evenly distributed.
+		// SUGGESTION Make this random, not evenly distributed.
 		// time represents the starting time of the course. This will rotate
 		// between 8 to 14
 		final int time = currentCourseCode % 7 + 8;
